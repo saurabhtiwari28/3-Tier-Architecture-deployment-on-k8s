@@ -23,7 +23,7 @@ spec:
           image: 586794440573.dkr.ecr.us-east-1.amazonaws.com/backend:latest
           imagePullPolicy: Always
           env:
-            - name: MONGO_URI
+            - name: MONGO_CONN_STR
               value: mongodb://mongodb-svc:27017/todo?directConnection=true
             - name: MONGO_USERNAME
               valueFrom:

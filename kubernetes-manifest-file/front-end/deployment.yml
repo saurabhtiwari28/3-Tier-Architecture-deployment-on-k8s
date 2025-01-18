@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end
+  namespace: three-tier
+  labels:
+    app: front-end
+    env: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front-end
+  template:
+    metadata:
+      labels:
+        app: front-end
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
+    spec:
+      imagePullSecrets:
+      - name: ecr-registry-secret
+      containers:
+      - name: front-end
+        image: 407622020962.dkr.ecr.us-east-1.amazonaws.com/frontend:latest
+        imagePullPolicy: Always
+        env: 
+         - name: REACT_APP_API_URL
+           value: http://api:8080
+        ports:
+        - containerPort: 3000

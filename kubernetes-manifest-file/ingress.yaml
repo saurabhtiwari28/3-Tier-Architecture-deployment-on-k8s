@@ -4,14 +4,13 @@ metadata:
   name: mainlb
   namespace: three-tier
   annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/scheme: internal  # To make the ingress internal (not internet-facing)
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
 spec:
-  ingressClassName: alb
+  ingressClassName: alb  # Use the correct ingress controller class
   rules:
-    - host: backend.amanpathakdevops.study
-      http:
+    - http:
         paths:
           - path: /api
             pathType: Prefix
@@ -19,7 +18,7 @@ spec:
               service:
                 name: api
                 port:   
-                  number: 3500
+                  number: 8080
           - path: /
             pathType: Prefix
             backend:
@@ -27,4 +26,3 @@ spec:
                 name: frontend
                 port: 
                   number: 3000
-      

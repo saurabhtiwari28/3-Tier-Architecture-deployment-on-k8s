@@ -19,13 +19,13 @@ spec:
       - name: mongo
         image: mongo:4.4.6
         command: 
-            - "numactl" 
-            - "--interleave=all"
-            - "mongod"
-            - "--wiredTigerCacheSizeGB"
-            - "0.1" 
-            - "--bind_ip"
-            - "0.0.0.0"
+          - "numactl" 
+          - "--interleave=all"
+          - "mongod"
+          - "--wiredTigerCacheSizeGB"
+          - "0.1" 
+          - "--bind_ip"
+          - "0.0.0.0"
         ports:
         - containerPort: 27017
         env: 
@@ -39,10 +39,10 @@ spec:
             secretKeyRef:
               name: mongodb-secret
               key: password
-        volumeMounts:
+        volumeMounts:  # Mount the PVC to the container
         - name: mongodb-persistent-storage
-          mountPath: /data/db 
-        volumes:
+          mountPath: /data/db
+      volumes:  # Define the PVC here, at the spec level
       - name: mongodb-persistent-storage
         persistentVolumeClaim:
-          claimName: mongo-volume-claim 
+          claimName: mongo-volume-claim

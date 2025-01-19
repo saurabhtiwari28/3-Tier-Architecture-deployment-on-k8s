@@ -15,11 +15,6 @@ spec:
     metadata:
       labels:
         app: front-end
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 25%
-      maxSurge: 1
     spec:
       imagePullSecrets:
       - name: ecr-registry-secret
@@ -32,3 +27,8 @@ spec:
            value: http://api:8080
         ports:
         - containerPort: 3000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 1
